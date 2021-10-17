@@ -1,12 +1,20 @@
-from logging import exception
 from flask import Flask, Response, request
 from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv, find_dotenv
+import os
 import json
 import datetime
 
+load_dotenv(override=True)
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1234@localhost:5432/flask_react'
+root_db = os.getenv("ROOT")
+pass_db = os.getenv("PASS")
+localhost_db = os.getenv("LOCALHOST")
+postgree_port_db = os.getenv("POSTGREE_PORT")
+name_db = os.getenv("DATABASE_NAME")
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{root_db}:{pass_db}@{localhost_db}:{postgree_port_db}/{name_db}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
